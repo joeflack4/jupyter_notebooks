@@ -1,0 +1,892 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Health Data - Elizabeth Ashley Flack}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Health Data - Elizabeth Ashley
+Flack}\label{health-data---elizabeth-ashley-flack}
+
+Original data is available on
+\href{https://docs.google.com/spreadsheets/d/1vaXOXPluOg_lg0uqKC-qLBt6odL0GPFPcYzOP2vbaiM/edit\#gid=1309334105}{Google
+Sheets}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}314}]:} \PY{c+c1}{\PYZsh{} Juptyer Notebook Settings}
+          \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{5}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{5}\PY{p}{)}  \PY{c+c1}{\PYZsh{} plot size, inches}
+\end{Verbatim}
+
+
+    \subsection{I. Load Semi-Raw Data}\label{i.-load-semi-raw-data}
+
+This data has already been somewhat wrangled in that secondary variables
+(namespaced as \texttt{Indicator.SECONDARY\_VARIABLE\_NAME}) have been
+created.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}315}]:} dat \PY{o}{=} read.csv\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{data/Health Data \PYZhy{} Elizabeth Ashley Flack.csv\PYZdq{}}\PY{p}{,} header \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+          \PY{k+kp}{tail}\PY{p}{(}dat\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llllllllllllllllllllllllllllllllllllllllllllllllllll}
+  & Date & Weekday & Notes.Unstructured & Med.AntiDepressant.Wellbutrin & Med.AntiDepressant.Celexa & Med.AntiPsychotic.Zyprexa & Med.MoodStabilizer.Topamax & Med.AntiAnxiety.Vistaril & Med.Other.MigrainePill & Symptom.Headache & ⋯ & Indicator.Health & Indicator.Experience.. & Indicator.Experience...1 & Indicator.Experience & Indicator.SelfEfficacy & Indicator.Productivity & Indicator.Wellbeing & Indicator.Utility.. & Indicator.Utility...1 & Indicator.Utility\\
+\hline
+	95 & 1/3/18                    & 4                         & Food diary (FD), G (Gym). & 0                         & 40                        & 0                         & 0                         & 75                        &  0                        &  0                        & ⋯                         & 0                         & 0                         & 0                         & 0                         & 0.23                      & 0                         & 0.1                       & 0                         & 0                         & 0.08                     \\
+	96 & 1/4/18                    & 5                         &                           & 0                         & 40                        & 0                         & 0                         & 75                        & NA                        & NA                        & ⋯                         & 0                         & 0                         & 0                         & 0                         & 0.00                      & 0                         & 0.0                       & 0                         & 0                         & 0.00                     \\
+	97 & 1/5/18                    & 6                         &                           & 0                         & 40                        & 0                         & 0                         & 75                        & NA                        & NA                        & ⋯                         & 0                         & 0                         & 0                         & 0                         & 0.00                      & 0                         & 0.0                       & 0                         & 0                         & 0.00                     \\
+	98 & 1/6/18                    & 7                         &                           & 0                         & 40                        & 0                         & 0                         & 75                        & NA                        & NA                        & ⋯                         & 0                         & 0                         & 0                         & 0                         & 0.00                      & 0                         & 0.0                       & 0                         & 0                         & 0.00                     \\
+	99 & 1/7/18                    & 1                         &                           & 0                         & 40                        & 0                         & 0                         & 75                        & NA                        & NA                        & ⋯                         & 0                         & 0                         & 0                         & 0                         & 0.00                      & 0                         & 0.0                       & 0                         & 0                         & 0.00                     \\
+	100 & 1/8/18                    & 2                         &                           & 0                         & 40                        & 0                         & 0                         & 75                        & NA                        & NA                        & ⋯                         & 0                         & 0                         & 0                         & 0                         & 0.00                      & 0                         & 0.0                       & 0                         & 0                         & 0.00                     \\
+\end{tabular}
+
+
+    
+    \subsection{II. Explore Semi-Raw Data}\label{ii.-explore-semi-raw-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}316}]:} \PY{k+kp}{summary}\PY{p}{(}dat\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+      Date       Weekday    
+ 1/1/18 : 1   Min.   :1.00  
+ 1/2/18 : 1   1st Qu.:2.00  
+ 1/3/18 : 1   Median :4.00  
+ 1/4/18 : 1   Mean   :3.95  
+ 1/5/18 : 1   3rd Qu.:6.00  
+ 1/6/18 : 1   Max.   :7.00  
+ (Other):94                 
+                                      Notes.Unstructured
+                                               :20      
+ Migraine pill.                                : 4      
+ Bedridden.                                    : 3      
+ Cleaning house.                               : 3      
+ Food diary.                                   : 3      
+ 1hr convo w/ volunteer coordinator at library.: 1      
+ (Other)                                       :66      
+ Med.AntiDepressant.Wellbutrin Med.AntiDepressant.Celexa
+ Min.   :  0.0                 Min.   :30.0             
+ 1st Qu.:  0.0                 1st Qu.:30.0             
+ Median :150.0                 Median :30.0             
+ Mean   :100.5                 Mean   :33.3             
+ 3rd Qu.:150.0                 3rd Qu.:40.0             
+ Max.   :150.0                 Max.   :40.0             
+                                                        
+ Med.AntiPsychotic.Zyprexa Med.MoodStabilizer.Topamax Med.AntiAnxiety.Vistaril
+ Min.   :0                 Min.   :  0.0              Min.   : 0.0            
+ 1st Qu.:0                 1st Qu.: 25.0              1st Qu.:75.0            
+ Median :0                 Median : 75.0              Median :75.0            
+ Mean   :0                 Mean   : 61.5              Mean   :73.5            
+ 3rd Qu.:0                 3rd Qu.: 75.0              3rd Qu.:75.0            
+ Max.   :0                 Max.   :100.0              Max.   :75.0            
+                                                                              
+ Med.Other.MigrainePill Symptom.Headache Symptom.Episode   Symptom.Depression
+ Min.   :0.0000         Min.   :0.0000   Min.   :0.00000   Min.   :0.00000   
+ 1st Qu.:0.0000         1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000   
+ Median :0.0000         Median :0.0000   Median :0.00000   Median :0.00000   
+ Mean   :0.1789         Mean   :0.2211   Mean   :0.05263   Mean   :0.01053   
+ 3rd Qu.:0.0000         3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000   
+ Max.   :1.0000         Max.   :1.0000   Max.   :2.00000   Max.   :1.00000   
+ NA's   :5              NA's   :5        NA's   :5         NA's   :5         
+ Symptom.Anxiety   Symptom.Paranoia  Symptom.Stress    Symptom.SleepTrouble
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000     
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000     
+ Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000     
+ Mean   :0.01053   Mean   :0.03158   Mean   :0.03158   Mean   :0.03158     
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000     
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000     
+ NA's   :5         NA's   :5         NA's   :5         NA's   :5           
+ Symptom.NoSleep   Symptom.NoEnergy  Symptom.Bedridden Symptom.Mania    
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.0000    Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000    1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000   Median :0.0000    Median :0.00000  
+ Mean   :0.02105   Mean   :0.01053   Mean   :0.0421    Mean   :0.01053  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000    3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.0000    Max.   :1.00000  
+ NA's   :5         NA's   :5         NA's   :5         NA's   :5        
+ Symptom.Crying   Symptom.Detatchment Symptom.ChestPain Experience.Period
+ Min.   :0.0000   Min.   :0.00000     Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.0000   1st Qu.:0.00000     1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.0000   Median :0.00000     Median :0.00000   Median :0.00000  
+ Mean   :0.0421   Mean   :0.01053     Mean   :0.03158   Mean   :0.03158  
+ 3rd Qu.:0.0000   3rd Qu.:0.00000     3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.0000   Max.   :1.00000     Max.   :1.00000   Max.   :1.00000  
+ NA's   :5        NA's   :5           NA's   :5         NA's   :5        
+ Experience.NegativeSocialInteraction Experience.MaritalConflict
+ Min.   :0.00000                      Min.   :0                 
+ 1st Qu.:0.00000                      1st Qu.:0                 
+ Median :0.00000                      Median :0                 
+ Mean   :0.01053                      Mean   :0                 
+ 3rd Qu.:0.00000                      3rd Qu.:0                 
+ Max.   :1.00000                      Max.   :0                 
+ NA's   :5                            NA's   :5                 
+ Activity.Exercise Activity.Meditation  Activity.Sex    Activity.Drive  
+ Min.   :0.00000   Min.   :0.00000     Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.00000   1st Qu.:0.00000     1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.00000   Median :0.00000     Median :0.0000   Median :0.0000  
+ Mean   :0.07368   Mean   :0.01053     Mean   :0.0421   Mean   :0.1368  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000     3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :1.00000   Max.   :1.00000     Max.   :1.0000   Max.   :2.0000  
+ NA's   :5         NA's   :5           NA's   :5        NA's   :5       
+ Activity.PositiveSocialInteraction Activity.FoodDiary Indicator.Health.Mood..
+ Min.   :0.0000                     Min.   :0.0000     Min.   :0              
+ 1st Qu.:0.0000                     1st Qu.:0.0000     1st Qu.:0              
+ Median :0.0000                     Median :0.0000     Median :0              
+ Mean   :0.1053                     Mean   :0.2316     Mean   :0              
+ 3rd Qu.:0.0000                     3rd Qu.:0.0000     3rd Qu.:0              
+ Max.   :1.0000                     Max.   :1.0000     Max.   :0              
+ NA's   :5                          NA's   :5                                 
+ Indicator.Health.Mood...1 Indicator.Health.Energy..
+ Min.   :0.0000            Min.   :0                
+ 1st Qu.:0.0000            1st Qu.:0                
+ Median :0.0000            Median :0                
+ Mean   :0.0334            Mean   :0                
+ 3rd Qu.:0.0000            3rd Qu.:0                
+ Max.   :1.0000            Max.   :0                
+                                                    
+ Indicator.Health.Energy...1 Indicator.Health.Mental..
+ Min.   :0.000               Min.   :0.00             
+ 1st Qu.:0.000               1st Qu.:0.00             
+ Median :0.000               Median :0.00             
+ Mean   :0.029               Mean   :0.02             
+ 3rd Qu.:0.000               3rd Qu.:0.00             
+ Max.   :0.500               Max.   :0.50             
+                                                      
+ Indicator.Health.Mental...1 Indicator.Health.Physical..
+ Min.   :0                   Min.   :0.00               
+ 1st Qu.:0                   1st Qu.:0.00               
+ Median :0                   Median :0.00               
+ Mean   :0                   Mean   :0.12               
+ 3rd Qu.:0                   3rd Qu.:0.00               
+ Max.   :0                   Max.   :1.00               
+                                                        
+ Indicator.Health.Physical...1 Indicator.Health.. Indicator.Health...1
+ Min.   :0                     Min.   :0.0000     Min.   :0           
+ 1st Qu.:0                     1st Qu.:0.0000     1st Qu.:0           
+ Median :0                     Median :0.0000     Median :0           
+ Mean   :0                     Mean   :0.0421     Mean   :0           
+ 3rd Qu.:0                     3rd Qu.:0.0800     3rd Qu.:0           
+ Max.   :0                     Max.   :0.4200     Max.   :0           
+                                                                      
+ Indicator.Health  Indicator.Experience.. Indicator.Experience...1
+ Min.   :-0.4200   Min.   :0.0000         Min.   :0.0             
+ 1st Qu.:-0.0800   1st Qu.:0.0000         1st Qu.:0.0             
+ Median : 0.0000   Median :0.0000         Median :0.0             
+ Mean   :-0.0421   Mean   :0.0035         Mean   :0.1             
+ 3rd Qu.: 0.0000   3rd Qu.:0.0000         3rd Qu.:0.0             
+ Max.   : 0.0000   Max.   :0.2000         Max.   :1.0             
+                                                                  
+ Indicator.Experience Indicator.SelfEfficacy Indicator.Productivity
+ Min.   :-0.2000      Min.   :0.0000         Min.   :0             
+ 1st Qu.: 0.0000      1st Qu.:0.0000         1st Qu.:0             
+ Median : 0.0000      Median :0.0000         Median :0             
+ Mean   : 0.0965      Mean   :0.0869         Mean   :0             
+ 3rd Qu.: 0.0000      3rd Qu.:0.1925         3rd Qu.:0             
+ Max.   : 1.0000      Max.   :0.5500         Max.   :0             
+                                                                   
+ Indicator.Wellbeing Indicator.Utility.. Indicator.Utility...1
+ Min.   :-0.0800     Min.   :0           Min.   :0            
+ 1st Qu.: 0.0000     1st Qu.:0           1st Qu.:0            
+ Median : 0.0000     Median :0           Median :0            
+ Mean   : 0.0573     Mean   :0           Mean   :0            
+ 3rd Qu.: 0.0800     3rd Qu.:0           3rd Qu.:0            
+ Max.   : 0.5500     Max.   :0           Max.   :0            
+                                                              
+ Indicator.Utility
+ Min.   :-0.0600  
+ 1st Qu.: 0.0000  
+ Median : 0.0000  
+ Mean   : 0.0436  
+ 3rd Qu.: 0.0600  
+ Max.   : 0.4100  
+                  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}317}]:} \PY{k+kp}{sapply}\PY{p}{(}dat\PY{p}{,} \PY{k+kp}{typeof}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{description*}
+\item[Date] 'integer'
+\item[Weekday] 'integer'
+\item[Notes.Unstructured] 'integer'
+\item[Med.AntiDepressant.Wellbutrin] 'integer'
+\item[Med.AntiDepressant.Celexa] 'integer'
+\item[Med.AntiPsychotic.Zyprexa] 'integer'
+\item[Med.MoodStabilizer.Topamax] 'integer'
+\item[Med.AntiAnxiety.Vistaril] 'integer'
+\item[Med.Other.MigrainePill] 'integer'
+\item[Symptom.Headache] 'integer'
+\item[Symptom.Episode] 'integer'
+\item[Symptom.Depression] 'integer'
+\item[Symptom.Anxiety] 'integer'
+\item[Symptom.Paranoia] 'integer'
+\item[Symptom.Stress] 'integer'
+\item[Symptom.SleepTrouble] 'integer'
+\item[Symptom.NoSleep] 'integer'
+\item[Symptom.NoEnergy] 'integer'
+\item[Symptom.Bedridden] 'integer'
+\item[Symptom.Mania] 'integer'
+\item[Symptom.Crying] 'integer'
+\item[Symptom.Detatchment] 'integer'
+\item[Symptom.ChestPain] 'integer'
+\item[Experience.Period] 'integer'
+\item[Experience.NegativeSocialInteraction] 'integer'
+\item[Experience.MaritalConflict] 'integer'
+\item[Activity.Exercise] 'integer'
+\item[Activity.Meditation] 'integer'
+\item[Activity.Sex] 'integer'
+\item[Activity.Drive] 'integer'
+\item[Activity.PositiveSocialInteraction] 'integer'
+\item[Activity.FoodDiary] 'integer'
+\item[Indicator.Health.Mood..] 'integer'
+\item[Indicator.Health.Mood...1] 'double'
+\item[Indicator.Health.Energy..] 'integer'
+\item[Indicator.Health.Energy...1] 'double'
+\item[Indicator.Health.Mental..] 'double'
+\item[Indicator.Health.Mental...1] 'integer'
+\item[Indicator.Health.Physical..] 'double'
+\item[Indicator.Health.Physical...1] 'integer'
+\item[Indicator.Health..] 'double'
+\item[Indicator.Health...1] 'integer'
+\item[Indicator.Health] 'double'
+\item[Indicator.Experience..] 'double'
+\item[Indicator.Experience...1] 'integer'
+\item[Indicator.Experience] 'double'
+\item[Indicator.SelfEfficacy] 'double'
+\item[Indicator.Productivity] 'integer'
+\item[Indicator.Wellbeing] 'double'
+\item[Indicator.Utility..] 'integer'
+\item[Indicator.Utility...1] 'integer'
+\item[Indicator.Utility] 'double'
+\end{description*}
+
+
+    
+    \subsection{III. Clean Data}\label{iii.-clean-data}
+
+    \subsubsection{III.1 Convert read.csv() Listto Data
+Frame}\label{iii.1-convert-read.csv-listto-data-frame}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}318}]:} df \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{data.frame}\PY{p}{(}dat\PY{p}{)}
+          df\PY{o}{\PYZdl{}}Date\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    10/1/17
+
+    
+    \subsubsection{III.2 Drop unneeded
+columns}\label{iii.2-drop-unneeded-columns}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}319}]:} df\PY{o}{\PYZdl{}}Date\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+          drops \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Notes.Unstructured\PYZdq{}}\PY{p}{)}
+          df \PY{o}{\PYZlt{}\PYZhy{}} df\PY{p}{[} \PY{p}{,} \PY{o}{!}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}df\PY{p}{)} \PY{o}{\PYZpc{}in\PYZpc{}} drops\PY{p}{)}\PY{p}{]}
+          df\PY{o}{\PYZdl{}}Date\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    10/1/17
+
+    
+    10/1/17
+
+    
+    \subsubsection{III.3 Remove any rows with missing
+values}\label{iii.3-remove-any-rows-with-missing-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}320}]:} df\PY{o}{\PYZdl{}}Date\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+          \PY{k+kp}{nrow}\PY{p}{(}df\PY{p}{)}
+          str\PY{p}{(}\PY{k+kp}{colSums}\PY{p}{(}\PY{k+kp}{is.na}\PY{p}{(}df\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          str\PY{p}{(}\PY{k+kp}{colSums}\PY{p}{(}\PY{o}{!}\PY{k+kp}{is.na}\PY{p}{(}df\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          df \PY{o}{\PYZlt{}\PYZhy{}} df\PY{p}{[}complete.cases\PY{p}{(}df\PY{p}{)}\PY{p}{,} \PY{p}{]}
+          \PY{k+kp}{nrow}\PY{p}{(}df\PY{p}{)}
+\end{Verbatim}
+
+
+    10/1/17
+
+    
+    100
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+ Named num [1:51] 0 0 0 0 0 0 0 5 5 5 {\ldots}
+ - attr(*, "names")= chr [1:51] "Date" "Weekday" "Med.AntiDepressant.Wellbutrin" "Med.AntiDepressant.Celexa" {\ldots}
+ Named num [1:51] 100 100 100 100 100 100 100 95 95 95 {\ldots}
+ - attr(*, "names")= chr [1:51] "Date" "Weekday" "Med.AntiDepressant.Wellbutrin" "Med.AntiDepressant.Celexa" {\ldots}
+
+    \end{Verbatim}
+
+    95
+
+    
+    \subsubsection{IV.4 Streamline Data
+Types}\label{iv.4-streamline-data-types}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}321}]:} df\PY{o}{\PYZdl{}}Date\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+          \PY{k+kp}{typeof}\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{)}
+          \PY{k+kp}{class}\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{)}
+          df\PY{o}{\PYZdl{}}Date \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{as.Date}\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} format\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZpc{}m/\PYZpc{}d/\PYZpc{}Y\PYZsq{}}\PY{p}{)}
+          \PY{k+kp}{class}\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{)}
+          \PY{k+kp}{typeof}\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{)}
+          df\PY{o}{\PYZdl{}}Date\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    10/1/17
+
+    
+    'integer'
+
+    
+    'factor'
+
+    
+    'Date'
+
+    
+    'double'
+
+    
+    0017-10-01
+
+    
+    \subsection{IV. Explore Clean Data}\label{iv.-explore-clean-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}322}]:} \PY{k+kp}{summary}\PY{p}{(}df\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+      Date               Weekday      Med.AntiDepressant.Wellbutrin
+ Min.   :0017-10-01   Min.   :1.000   Min.   :  0.0                
+ 1st Qu.:0017-10-24   1st Qu.:2.000   1st Qu.:  0.0                
+ Median :0017-11-17   Median :4.000   Median :150.0                
+ Mean   :0017-11-17   Mean   :3.937   Mean   :105.8                
+ 3rd Qu.:0017-12-10   3rd Qu.:6.000   3rd Qu.:150.0                
+ Max.   :0018-01-03   Max.   :7.000   Max.   :150.0                
+ Med.AntiDepressant.Celexa Med.AntiPsychotic.Zyprexa Med.MoodStabilizer.Topamax
+ Min.   :30.00             Min.   :0                 Min.   :  0.00            
+ 1st Qu.:30.00             1st Qu.:0                 1st Qu.: 50.00            
+ Median :30.00             Median :0                 Median : 75.00            
+ Mean   :32.95             Mean   :0                 Mean   : 64.74            
+ 3rd Qu.:40.00             3rd Qu.:0                 3rd Qu.: 75.00            
+ Max.   :40.00             Max.   :0                 Max.   :100.00            
+ Med.AntiAnxiety.Vistaril Med.Other.MigrainePill Symptom.Headache
+ Min.   : 0.00            Min.   :0.0000         Min.   :0.0000  
+ 1st Qu.:75.00            1st Qu.:0.0000         1st Qu.:0.0000  
+ Median :75.00            Median :0.0000         Median :0.0000  
+ Mean   :73.42            Mean   :0.1789         Mean   :0.2211  
+ 3rd Qu.:75.00            3rd Qu.:0.0000         3rd Qu.:0.0000  
+ Max.   :75.00            Max.   :1.0000         Max.   :1.0000  
+ Symptom.Episode   Symptom.Depression Symptom.Anxiety   Symptom.Paranoia 
+ Min.   :0.00000   Min.   :0.00000    Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000    1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000    Median :0.00000   Median :0.00000  
+ Mean   :0.05263   Mean   :0.01053    Mean   :0.01053   Mean   :0.03158  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000    3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :2.00000   Max.   :1.00000    Max.   :1.00000   Max.   :1.00000  
+ Symptom.Stress    Symptom.SleepTrouble Symptom.NoSleep   Symptom.NoEnergy 
+ Min.   :0.00000   Min.   :0.00000      Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000      1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000      Median :0.00000   Median :0.00000  
+ Mean   :0.03158   Mean   :0.03158      Mean   :0.02105   Mean   :0.01053  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000      3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.00000      Max.   :1.00000   Max.   :1.00000  
+ Symptom.Bedridden Symptom.Mania     Symptom.Crying    Symptom.Detatchment
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000    
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000    
+ Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000    
+ Mean   :0.04211   Mean   :0.01053   Mean   :0.04211   Mean   :0.01053    
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000    
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000    
+ Symptom.ChestPain Experience.Period Experience.NegativeSocialInteraction
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.00000                     
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000                     
+ Median :0.00000   Median :0.00000   Median :0.00000                     
+ Mean   :0.03158   Mean   :0.03158   Mean   :0.01053                     
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000                     
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.00000                     
+ Experience.MaritalConflict Activity.Exercise Activity.Meditation
+ Min.   :0                  Min.   :0.00000   Min.   :0.00000    
+ 1st Qu.:0                  1st Qu.:0.00000   1st Qu.:0.00000    
+ Median :0                  Median :0.00000   Median :0.00000    
+ Mean   :0                  Mean   :0.07368   Mean   :0.01053    
+ 3rd Qu.:0                  3rd Qu.:0.00000   3rd Qu.:0.00000    
+ Max.   :0                  Max.   :1.00000   Max.   :1.00000    
+  Activity.Sex     Activity.Drive   Activity.PositiveSocialInteraction
+ Min.   :0.00000   Min.   :0.0000   Min.   :0.0000                    
+ 1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000                    
+ Median :0.00000   Median :0.0000   Median :0.0000                    
+ Mean   :0.04211   Mean   :0.1368   Mean   :0.1053                    
+ 3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.0000                    
+ Max.   :1.00000   Max.   :2.0000   Max.   :1.0000                    
+ Activity.FoodDiary Indicator.Health.Mood.. Indicator.Health.Mood...1
+ Min.   :0.0000     Min.   :0               Min.   :0.00000          
+ 1st Qu.:0.0000     1st Qu.:0               1st Qu.:0.00000          
+ Median :0.0000     Median :0               Median :0.00000          
+ Mean   :0.2316     Mean   :0               Mean   :0.03516          
+ 3rd Qu.:0.0000     3rd Qu.:0               3rd Qu.:0.00000          
+ Max.   :1.0000     Max.   :0               Max.   :1.00000          
+ Indicator.Health.Energy.. Indicator.Health.Energy...1
+ Min.   :0                 Min.   :0.00000            
+ 1st Qu.:0                 1st Qu.:0.00000            
+ Median :0                 Median :0.00000            
+ Mean   :0                 Mean   :0.03053            
+ 3rd Qu.:0                 3rd Qu.:0.00000            
+ Max.   :0                 Max.   :0.50000            
+ Indicator.Health.Mental.. Indicator.Health.Mental...1
+ Min.   :0.00000           Min.   :0                  
+ 1st Qu.:0.00000           1st Qu.:0                  
+ Median :0.00000           Median :0                  
+ Mean   :0.02105           Mean   :0                  
+ 3rd Qu.:0.00000           3rd Qu.:0                  
+ Max.   :0.50000           Max.   :0                  
+ Indicator.Health.Physical.. Indicator.Health.Physical...1 Indicator.Health..
+ Min.   :0.0000              Min.   :0                     Min.   :0.00000   
+ 1st Qu.:0.0000              1st Qu.:0                     1st Qu.:0.00000   
+ Median :0.0000              Median :0                     Median :0.00000   
+ Mean   :0.1263              Mean   :0                     Mean   :0.04432   
+ 3rd Qu.:0.0000              3rd Qu.:0                     3rd Qu.:0.08000   
+ Max.   :1.0000              Max.   :0                     Max.   :0.42000   
+ Indicator.Health...1 Indicator.Health   Indicator.Experience..
+ Min.   :0            Min.   :-0.42000   Min.   :0.000000      
+ 1st Qu.:0            1st Qu.:-0.08000   1st Qu.:0.000000      
+ Median :0            Median : 0.00000   Median :0.000000      
+ Mean   :0            Mean   :-0.04432   Mean   :0.003684      
+ 3rd Qu.:0            3rd Qu.: 0.00000   3rd Qu.:0.000000      
+ Max.   :0            Max.   : 0.00000   Max.   :0.200000      
+ Indicator.Experience...1 Indicator.Experience Indicator.SelfEfficacy
+ Min.   :0.0000           Min.   :-0.2000      Min.   :0.00000       
+ 1st Qu.:0.0000           1st Qu.: 0.0000      1st Qu.:0.00000       
+ Median :0.0000           Median : 0.0000      Median :0.00000       
+ Mean   :0.1053           Mean   : 0.1016      Mean   :0.09147       
+ 3rd Qu.:0.0000           3rd Qu.: 0.0000      3rd Qu.:0.23000       
+ Max.   :1.0000           Max.   : 1.0000      Max.   :0.55000       
+ Indicator.Productivity Indicator.Wellbeing Indicator.Utility..
+ Min.   :0              Min.   :-0.08000    Min.   :0          
+ 1st Qu.:0              1st Qu.: 0.00000    1st Qu.:0          
+ Median :0              Median : 0.00000    Median :0          
+ Mean   :0              Mean   : 0.06032    Mean   :0          
+ 3rd Qu.:0              3rd Qu.: 0.08000    3rd Qu.:0          
+ Max.   :0              Max.   : 0.55000    Max.   :0          
+ Indicator.Utility...1 Indicator.Utility 
+ Min.   :0             Min.   :-0.06000  
+ 1st Qu.:0             1st Qu.: 0.00000  
+ Median :0             Median : 0.00000  
+ Mean   :0             Mean   : 0.04589  
+ 3rd Qu.:0             3rd Qu.: 0.06000  
+ Max.   :0             Max.   : 0.41000  
+    \end{verbatim}
+
+    
+    \subsection{V. Analyses}\label{v.-analyses}
+
+    \subsubsection{V.1 Simple Plots}\label{v.1-simple-plots}
+
+\paragraph{Data Visualization Reference
+Info}\label{data-visualization-reference-info}
+
+\subparagraph{Ggplot2}\label{ggplot2}
+
+Tutorial:
+http://www.cookbook-r.com/Graphs/Bar\_and\_line\_graphs\_(ggplot2)/
+
+Options for \texttt{geom\_line()} - Line type, e.g.
+\texttt{linetype=\textquotesingle{}dashed\textquotesingle{}} - Line
+color, e.g. \texttt{color=\textquotesingle{}red\textquotesingle{}}
+
+    \paragraph{Presence of any headache on weekday for timespan of entire
+dataset}\label{presence-of-any-headache-on-weekday-for-timespan-of-entire-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}323}]:} lm1 \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(}Symptom.Headache \PY{o}{\PYZti{}} Weekday\PY{p}{,} data\PY{o}{=}df\PY{p}{)}
+          plot\PY{p}{(}df\PY{o}{\PYZdl{}}Weekday\PY{p}{,} df\PY{o}{\PYZdl{}}Symptom.Headache\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Health over time}\label{health-over-time}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}378}]:} \PY{k+kn}{library}\PY{p}{(}ggplot2\PY{p}{)}
+          var \PY{o}{\PYZlt{}\PYZhy{}} df\PY{o}{\PYZdl{}}Indicator.Health
+          time \PY{o}{\PYZlt{}\PYZhy{}} df\PY{o}{\PYZdl{}}Date
+          
+          \PY{c+c1}{\PYZsh{} a\PYZus{}lm \PYZlt{}\PYZhy{} lm(\PYZhy{}10*Indicator.Health \PYZti{} Date, data=df)}
+          \PY{c+c1}{\PYZsh{} plot(df\PYZdl{}Date, df\PYZdl{}Indicator.Health)}
+          \PY{c+c1}{\PYZsh{} lines(df\PYZdl{}Date, a\PYZus{}lm\PYZdl{}fitted)}
+          
+          \PY{c+c1}{\PYZsh{} Basic line plot with points}
+          \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{7}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{4.5}\PY{p}{)}  \PY{c+c1}{\PYZsh{} (1) Jupyter Notebook plot size, inches}
+          \PY{c+c1}{\PYZsh{} ggplot(data=df, aes(x=time, y=\PYZhy{}10*(var), colour=(\PYZhy{}10*var), group=1)) + geom\PYZus{}line()+ geom\PYZus{}point() + }
+          ggplot\PY{p}{(}data\PY{o}{=}df\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}time\PY{p}{,} y\PY{o}{=}\PY{l+m}{\PYZhy{}10}\PY{o}{*}\PY{p}{(}var\PY{p}{)}\PY{p}{,} colour\PY{o}{=}\PY{p}{(}\PY{l+m}{\PYZhy{}10}\PY{o}{*}var\PY{p}{)}\PY{p}{,} color\PY{o}{=}qsec\PY{p}{,} group\PY{o}{=}\PY{l+m}{1}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}line\PY{p}{(}\PY{p}{)}\PY{o}{+} geom\PYZus{}point\PY{p}{(}\PY{p}{)} \PY{o}{+} 
+            theme\PY{p}{(}plot.title \PY{o}{=} element\PYZus{}text\PY{p}{(}hjust \PY{o}{=} \PY{l+m}{0.5}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+            scale\PYZus{}color\PYZus{}gradient\PY{p}{(}low\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}AA4444\PYZdq{}}\PY{p}{,} high\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ff0000\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+            scale\PYZus{}x\PYZus{}date\PY{p}{(}date\PYZus{}breaks\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{1 month\PYZsq{}}\PY{p}{,} date\PYZus{}labels\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}b \PYZsq{}\PYZpc{}y\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+            stat\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lm\PYZsq{}}\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsh{}2e64ba\PYZsq{}}\PY{p}{)} \PY{o}{+} 
+            labs\PY{p}{(}x\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{Time\PYZsq{}}\PY{p}{,} y\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{Adverse Health Measure (AHM)\PYZsq{}}\PY{p}{,} title\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{Adverse Health Measure (AHM), Daily\PYZsq{}}\PY{p}{,} colour\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{AHM\PYZsq{}}\PY{p}{)}
+          \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{7}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{7}\PY{p}{)}  \PY{c+c1}{\PYZsh{} (1) default}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Warning message:
+“The plyr::rename operation has created duplicates for the following name(s): (`colour`)”
+    \end{Verbatim}
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}341}]:} a\PYZus{}lm \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(}Indicator.Health \PY{o}{\PYZti{}} Date\PY{p}{,} data\PY{o}{=}df\PY{p}{)}
+          plot\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} df\PY{o}{\PYZdl{}}Indicator.Health\PY{p}{)}
+          lines\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} a\PYZus{}lm\PY{o}{\PYZdl{}}fitted\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{V.2 Linear Models}\label{v.2-linear-models}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}332}]:} a\PYZus{}lm \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(}Indicator.Utility \PY{o}{\PYZti{}} Date\PY{p}{,} data\PY{o}{=}df\PY{p}{)}
+          plot\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} df\PY{o}{\PYZdl{}}Indicator.Utility\PY{p}{)}
+          lines\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} a\PYZus{}lm\PY{o}{\PYZdl{}}fitted\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}331}]:} a\PYZus{}lm \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(}Indicator.Health \PY{o}{\PYZti{}} Date\PY{p}{,} data\PY{o}{=}df\PY{p}{)}
+          plot\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} df\PY{o}{\PYZdl{}}Indicator.Health\PY{p}{)}
+          lines\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} a\PYZus{}lm\PY{o}{\PYZdl{}}fitted\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}330}]:} a\PYZus{}lm \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(}Indicator.Wellbeing \PY{o}{\PYZti{}} Date\PY{p}{,} data\PY{o}{=}df\PY{p}{)}
+          plot\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} df\PY{o}{\PYZdl{}}Indicator.Wellbeing\PY{p}{)}
+          lines\PY{p}{(}df\PY{o}{\PYZdl{}}Date\PY{p}{,} a\PYZus{}lm\PY{o}{\PYZdl{}}fitted\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
